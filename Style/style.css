@@ -1,0 +1,11 @@
+/* For the grid lines */
+.grid line {
+    stroke: white;
+    stroke-opacity: 0.5;
+    shape-rendering: crispEdges;
+}
+
+.grid path {
+    stroke-width: 0;
+}
+

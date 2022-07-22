@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html class=>
+    <head>
+
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+        <!-- MathJax -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    </head>
+
+    <body class="bg-light">
+        
+        <main role="main">
+
+            <!-- Header -->
+            <header class="mt-4">
+                <div class="container pb-2 border-dark border-bottom">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="https://github.com/Logan1904" class="text-dark text-decoration-none">
+                                <img src="./Images/profile.jpeg" alt="github_picture" style="height: 40px; border-radius: 50%;">
+                                <span class="fs-5 ms-2">GitHub</span>
+                            </a>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <a href="./index.html" class="btn btn-outline-primary" role="button">Homepage</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- First container containing title and short description -->
+            <div class="container" >
+                <div class="row">
+                    <div class="mt-5 col-md-6 mx-auto bg-dark text-light rounded-2">
+                        <h1 class="border-bottom border-light" style="text-align: center">Optimisation Visualisation</h1>
+                        <p class="fs-6 text-center">
+                          Numerical optimisation algorithms are found in almost every industry and application. However, 
+                          grasping these algorithms can be tricky for beginners and non-expert users. We present a visual aid for common optimisation 
+                          algorithsm on several common test functions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bootstrap cards to showcase the different functions being optimised -->
+            <div class="container mt-5">
+                <div class="row row-cols-1 row-cols-md-4 g-4">
+                    <div class="col">
+                      <div class="card h-100 text-center">
+                        <img src="./Images/function1.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">
+                            <a href="https://www.sfu.ca/~ssurjano/spheref.html">Sphere Function</a>
+                          </h5>
+                          <p class="card-text">Unimodal, continuous, convex</a>
+                          <p class="card-text">$$f(x,y) = x^2 + y^2$$</p>
+                          <p class="card-text">$$(x^*,y^*) = (0,0)$$</p>
+                          <a href="./function1.html" class="btn btn-outline-primary center" role="button">Test It Out!</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card h-100 text-center">
+                        <img src="./Images/function2.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">
+                            <a href="https://www.sfu.ca/~ssurjano/rastr.html">2D Rastrigin Function</a>
+                          </h5>
+                          <p class="card-text">Multimodal, continuous, non-convex</p>
+                          <p class="card-text">$$f(x,y) = 20 + \sum_{i=1}^{2} x_i^2 - 10 \cos(2\pi x_i)$$</p>
+                          <p class="card-text">$$(x^*,y^*) = (0,0)$$</p>
+                          <a href="./function2.html" class="btn btn-outline-primary center" role="button">Test It Out!</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+
+            
+        </main>
+
+
+    </body>
+
+
+    
+</html>
