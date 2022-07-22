@@ -11,7 +11,6 @@ var svg = d3.select("#contour")
             .attr("width", width + margin.right + margin.left)
             .attr("height", height + margin.top + margin.bottom)
             .style("display", "block")
-            .style("margin", "auto")
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -77,7 +76,7 @@ svg.append("g").call(leftAxis);
 svg.append("g").call(bottomAxis.tickSize(height).tickFormat("")).style("stroke-dasharray", "5 5").attr("class", "grid");
 svg.append("g").call(leftAxis.tickSize(-width).tickFormat("")).style("stroke-dasharray", "5 5").attr("class", "grid");
 
-// Add menu
+// Create menu SVG
 var menu_width = document.getElementById('menu').clientWidth - margin.right - margin.left;        // Width is always size of the 10 columns
 var menu_height = height;   // Height is always 0.8*Width
 
@@ -90,12 +89,45 @@ var menu_svg = d3.select("#menu")
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+// Add menu            
 menu_svg.append("g").append("rect")
                     .attr("x", 0)
                     .attr("y", 0)
                     .attr("width", menu_width)
                     .attr("height", menu_height)
-                    .attr("fill", "black");
+                    .attr("fill", "white")
+                    .attr("opacity", 0);
+
+// Add menu buttons                
+var buttons = ["Gradient","A","B","C"];
+var button_length = menu_width*0.8;
+var button_height = 30;
+
+menu_svg.selectAll("buttons")
+        .data(buttons)
+        .enter()
+        .append("rect")
+        .attr("x", menu_width*0.1)
+        .attr("y", function(d,i) {return (menu_height / (buttons.length+1) * (i+1)) - (button_height/2);})
+        .attr("width", menu_width*0.8)
+        .attr("height", 30)
+        .attr("fill", function(d,i) {return d3.schemeTableau10[i];});
+
+// Add menu text
+menu_svg.selectAll("text")
+        .data(buttons)
+        .enter()
+        .append("text")
+        .attr("x", menu_width*0.5)
+        .attr("y", function(d,i) {return (menu_height / (buttons.length+1) * (i+1));})
+        .text(function(d) {return d;})
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .attr("font-family", "Arial")
+        .attr("font-size", 15)
+        .attr("font-weight", "bold")
+        .attr("fill", "white");
+
 
 
 // Gradient Descent Algorithm
