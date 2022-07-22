@@ -111,7 +111,10 @@ menu_svg.selectAll("buttons")
         .attr("y", function(d,i) {return (menu_height / (buttons.length+1) * (i+1)) - (button_height/2);})
         .attr("width", menu_width*0.8)
         .attr("height", 30)
-        .attr("fill", function(d,i) {return d3.schemeTableau10[i];});
+        .attr("fill", function(d,i) {return d3.schemeTableau10[i];})
+        .attr("stroke", "black")
+        .attr("class", function(d) {return d;})
+        .on('click', click)
 
 // Add menu text
 menu_svg.selectAll("text")
@@ -128,7 +131,24 @@ menu_svg.selectAll("text")
         .attr("font-weight", "bold")
         .attr("fill", "white");
 
+// Click function
+var draw = {};
+for (var i = 0; i < buttons.length; ++i) {
+    draw[buttons[i]] = true;
+}
 
+function click() {
+    var button = d3.select(this);
+    if (draw[button.attr("class")]) {       // If button is already enabled, disable it
+        button.attr("opacity", 0.5);
+        draw[button.attr("class")] = false;
+    } else {
+        button.attr("opacity", 1);
+        draw[button.attr("class")] = true;
+    }
+
+    console.log(draw);
+}
 
 // Gradient Descent Algorithm
 function gradient_descent(x0, y0, alpha, max_iter, tol=0.01) {
