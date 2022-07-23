@@ -155,7 +155,7 @@ var line = d3.line().x(d => scale_x.invert(d.x))
 
 function draw_path(data, type) {
     defs.append("marker")
-    .attr("id", "circle")
+    .attr("id", "circle"+type)
     .attr("markerWidth", 10)
     .attr("markerHeight",10)
     .attr("refX", "5")
@@ -171,18 +171,15 @@ function draw_path(data, type) {
                      .data(data)
                      .enter()
                      .append("path")
-                     .attr("d", line(data.slice(0,1)))
-                     .attr("stroke", colors[type])
-                     .attr("stroke-width", 3)
-                     .attr("fill", "none")
-                     .transition()
-                     .duration(30)
-                     .delay(function(d,i) { return 30 * i; })
-                     .attr("d", function(d,i) { return line(data.slice(0,i+1));})
-                     .attr("marker-end", "url(#circle)");
-
-                         
-
+                        .attr("d", line(data.slice(0,1)))
+                        .attr("stroke", colors[type])
+                        .attr("stroke-width", 3)
+                        .attr("fill", "none")
+                        .transition()
+                        .duration(30)
+                        .delay(function(d,i) { return 30 * i; })
+                        .attr("d", function(d,i) { return line(data.slice(0,i+1));})
+                        .attr("marker-end", "url(#circle"+type+")");
 }
 
 function contour_click() {

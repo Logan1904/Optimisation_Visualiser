@@ -76,7 +76,7 @@ function minimize(x0, y0) {
 
 
     if (draw["Gradient"]) {
-        var his = gradient_descent(x0, y0, 0.8, 100);
+        var his = gradient_descent(x0, y0, 0.01, 100);
         draw_path(his, "Gradient");
     }
 
