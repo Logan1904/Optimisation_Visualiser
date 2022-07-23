@@ -9,3 +9,9 @@
     stroke-width: 0;
 }
 
+body {
+    background-image: url("../Images/background.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}

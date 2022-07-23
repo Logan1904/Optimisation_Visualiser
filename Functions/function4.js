@@ -1,16 +1,13 @@
-// Rosenbrock Function
+// Beale Function
 function f(x, y) {
-    var a = 1;
-    var b = 2;
-    return (a-x)**2 + b*(y-x**2)**2;
-  }
+    return (1.5-x+x*y)**2 + (2.25-x+x*y**2)**2 + (2.625-x+x*y**3)**2;
+}
 
 // Gradient
 function grad_f(x, y) {
-    var a = 1;
-    var b = 2;
-    return [-2*(a-x) - 4*b*x*(y-x**2), 2*b*(y-x**2)];
-}  
+    return [2*((1.5-x+x*y)*(-1+y) + (2.25-x+x*y**2)*(-1+y**2) + (2.625-x+x*y**3)*(-1+y**3)), 
+            2*((1.5-x+x*y)*(x) + (2.25-x+x*y**2)*(2*x*y) + (2.625-x+x*y**3)*(3*x*y**2))];
+}
 
 // Gradient Descent Algorithm
 function gradient_descent(x0, y0, alpha, max_iter, tol=0.01) {
@@ -29,6 +26,11 @@ function gradient_descent(x0, y0, alpha, max_iter, tol=0.01) {
         x -= diff[0];
         y -= diff[1];
 
+        if (isNaN(x) || isNaN(y)) {
+            console.log("DIVERGENCE");
+            break;
+        }
+
         history.push({"x": x, "y": y});
     }
 
@@ -39,7 +41,7 @@ function gradient_descent(x0, y0, alpha, max_iter, tol=0.01) {
 var buttons = ["Gradient"];
 
 // Step size of contour plot
-var contour_step = 0.5;
+var contour_step = 100;
 
 // Minimise function
 function minimize(x0, y0) {
@@ -48,19 +50,22 @@ function minimize(x0, y0) {
     // Remove arrows
     defs.selectAll("marker").remove();
 
+
     if (draw["Gradient"]) {
-        var his = gradient_descent(x0, y0, 3e-2, 100, 0.001);
+        var his = gradient_descent(x0, y0, 0.001, 100, 0.0001);
         draw_path(his, "Gradient");
     }
 
 }
+
 // Domain Size
-var domain_x = [-2, 2];
-var domain_y = [-1, 3];
-var domain_f = [0, 20];
+var domain_x = [-4.5, 4.5];
+var domain_y = [-3.6, 3.6];
+var domain_f = [-10, 5000];
 
-var thresholds = d3.range(domain_f[0], domain_f[1], contour_step);
+var thresholds = d3.range(domain_f[0], domain_f[1]).map(i => Math.pow(2, i));
 
-var color_scale = d3.scaleLinear()
-                    .domain(d3.extent(thresholds))
+var color_scale = d3.scaleLog()
+                    .range(d3.extent(thresholds))
+                    .domain([1, domain_f[1]])
                     .interpolate(function() { return d3.interpolateMagma; });

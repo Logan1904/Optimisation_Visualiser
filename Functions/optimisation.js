@@ -24,14 +24,8 @@ var scale_x = d3.scaleLinear()
                 .range(domain_x);
 
 var scale_y = d3.scaleLinear()
-                .domain([0, height])
+                .domain([height, 0])
                 .range(domain_y);
-
-var thresholds = d3.range(domain_f[0], domain_f[1], contour_step);
-
-var color_scale = d3.scaleLinear()
-                    .domain(d3.extent(thresholds))
-                    .interpolate(function() { return d3.interpolateMagma; });
 
 // Contour plot
 var contours = d3.contours()

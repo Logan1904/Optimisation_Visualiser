@@ -91,3 +91,9 @@ function minimize(x0, y0) {
 var domain_x = [-10, 10];
 var domain_y = [-8, 8];
 var domain_f = [0, 100];
+
+var thresholds = d3.range(domain_f[0], domain_f[1], contour_step);
+
+var color_scale = d3.scaleLinear()
+                    .domain(d3.extent(thresholds))
+                    .interpolate(function() { return d3.interpolateMagma; });
