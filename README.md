@@ -6,6 +6,6 @@ When taking my optimisation module in university, I found a lack of visualisatio
 optimisation methods work on different objective functions; hopefully this provides a nice way to demonstrate different optimisation methods for users first
 learning about mathematical optimisation.
 
-This project also serves teach me
+This project also serves to teach HTML, JavaScript and the D3.js library
 
 Inspiration taken from Emilien Dupont (https://emiliendupont.github.io/2018/01/24/optimization-visualization/)
