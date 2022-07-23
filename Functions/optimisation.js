@@ -41,8 +41,6 @@ var contours = d3.contours()
                  .size([nx, ny])
                  .thresholds(thresholds);
 
-                
-
 // Get objective function values at every grid point
 var f_values = new Array(nx*ny);
 for (let i = 0; i < nx; ++i) {
@@ -63,7 +61,8 @@ svg.append("g")
    .data(contours(f_values))
    .enter().append("path")
    .attr("d", d3.geoPath(d3.geoIdentity().scale(width / nx)))
-   .attr("fill", function(d) { return color_scale(d.value); });
+   .attr("fill", function(d) { return color_scale(d.value); })
+   .on('click', contour_click);
 
 // Add axes to SVG
 var bottomAxis = d3.axisBottom(d3.scaleLinear().domain(domain_x).range([0,width]));
@@ -99,7 +98,10 @@ menu_svg.append("g").append("rect")
                     .attr("opacity", 0);
 
 // Add menu buttons                
-var buttons = ["Gradient","A","B","C"];
+colors = {}
+for (var i = 0; i < buttons.length; ++i) {
+    colors[buttons[i]] = d3.schemeTableau10[i];
+}
 var button_length = menu_width*0.8;
 var button_height = 30;
 
@@ -111,7 +113,7 @@ menu_svg.selectAll("buttons")
         .attr("y", function(d,i) {return (menu_height / (buttons.length+1) * (i+1)) - (button_height/2);})
         .attr("width", menu_width*0.8)
         .attr("height", 30)
-        .attr("fill", function(d,i) {return d3.schemeTableau10[i];})
+        .attr("fill", d => colors[d])
         .attr("stroke", "black")
         .attr("class", function(d) {return d;})
         .on('click', click)
@@ -148,25 +150,64 @@ function click() {
     }
 }
 
-// Gradient Descent Algorithm
-function gradient_descent(x0, y0, alpha, max_iter, tol=0.01) {
-    var history = [{"x": x0, "y": y0}];
+// Draw path
+var optimisation_path = svg.append("g");
+var defs = svg.append("defs")
+var line = d3.line().x(d => scale_x.invert(d.x))
+                    .y(d => scale_y.invert(d.y));
 
-    var x = x0;
-    var y = y0;
+function draw_path(data, type) {
+    defs.append("marker")
+    .attr("id", "circle")
+    .attr("markerWidth", 10)
+    .attr("markerHeight",10)
+    .attr("refX", "5")
+    .attr("refY", "5")
+    .append("circle")
+        .attr("cx", 5)
+        .attr("cy", 5)
+        .attr("r", 2)
+        .attr("stroke", "white")
+        .attr("fill", colors[type])
 
-    for (let i = 0; i < max_iter; ++i) {
-        diff = grad_f(x,y).map(x => x*alpha);
+    optimisation_path.selectAll(type)
+                     .data(data)
+                     .enter()
+                     .append("path")
+                     .attr("d", line(data.slice(0,1)))
+                     .attr("stroke", colors[type])
+                     .attr("stroke-width", 3)
+                     .transition()
+                     .duration(30)
+                     .delay(function(d,i) { return 30 * i; })
+                     .attr("d", function(d,i) { return line(data.slice(0,i+1));})
+                     .attr("marker-end", "url(#circle)");
 
-        if (diff[0] < tol && diff[1] < tol) {
-            break;
-        }
+                         
 
-        x -= diff[0];
-        y -= diff[1];
+}
 
-        history.push({"x": x, "y": y});
+function contour_click() {
+    var me = d3.mouse(this);
+    minimize(scale_x(me[0]), scale_y(me[1]));
+}
+
+function minimize(x0, y0) {
+    // Remove paths
+    optimisation_path.selectAll("path").remove();
+    // Remove arrows
+    defs.selectAll("marker").remove();
+
+
+    if (draw["Gradient"]) {
+        var his = gradient_descent(x0, y0, 0.1, 100);
+        draw_path(his, "Gradient");
+        console.log(his);
     }
 
-    return history
+    if (draw["Newton"]) {
+        var his = newtons_method(x0, y0, 100);
+        draw_path(his, "Newton");
+    }
+
 }
