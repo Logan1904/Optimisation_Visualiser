@@ -168,8 +168,6 @@ function gradient_descent(x0, y0, alpha, max_iter, tol=0.01) {
         y -= diff[1];
 
         history.push({"x": x, "y": y});
-
-        console.log(i);
     }
 
     return history
