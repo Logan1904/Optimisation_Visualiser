@@ -1,5 +1,5 @@
 // Margin convention
-var margin = {top: 20, bottom: 20,right: 20, left: 20};
+var margin = {top: 20, bottom: 20,right: 25, left: 25};
 
 // Screen variables
 var width = document.getElementById('contour').clientWidth - margin.right - margin.left;        // Width is always size of the 10 columns
@@ -66,7 +66,7 @@ svg.append("g")
 
 // Add axes to SVG
 var bottomAxis = d3.axisBottom(d3.scaleLinear().domain(domain_x).range([0,width]));
-var leftAxis = d3.axisLeft(d3.scaleLinear().domain(domain_y).range([0,height]));
+var leftAxis = d3.axisLeft(d3.scaleLinear().domain(domain_y).range([height,0]));
 
 svg.append("g").call(bottomAxis).attr("transform", "translate(0," + height + ")");
 svg.append("g").call(leftAxis);
@@ -177,6 +177,7 @@ function draw_path(data, type) {
                      .attr("d", line(data.slice(0,1)))
                      .attr("stroke", colors[type])
                      .attr("stroke-width", 3)
+                     .attr("fill", "none")
                      .transition()
                      .duration(30)
                      .delay(function(d,i) { return 30 * i; })
@@ -190,24 +191,4 @@ function draw_path(data, type) {
 function contour_click() {
     var me = d3.mouse(this);
     minimize(scale_x(me[0]), scale_y(me[1]));
-}
-
-function minimize(x0, y0) {
-    // Remove paths
-    optimisation_path.selectAll("path").remove();
-    // Remove arrows
-    defs.selectAll("marker").remove();
-
-
-    if (draw["Gradient"]) {
-        var his = gradient_descent(x0, y0, 0.1, 100);
-        draw_path(his, "Gradient");
-        console.log(his);
-    }
-
-    if (draw["Newton"]) {
-        var his = newtons_method(x0, y0, 100);
-        draw_path(his, "Newton");
-    }
-
 }
