@@ -146,8 +146,6 @@ function click() {
         button.attr("opacity", 1);
         draw[button.attr("class")] = true;
     }
-
-    console.log(draw);
 }
 
 // Gradient Descent Algorithm
