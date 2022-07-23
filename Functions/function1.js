@@ -1,7 +1,7 @@
 // Sphere Function
 function f(x, y) {
     return x**2 + y**2;
-  }
+}
 
 // Gradient
 function grad_f(x, y) {
@@ -64,6 +64,10 @@ function newtons_method(x0, y0, max_iter, tol=0.01) {
 // Define buttons
 var buttons = ["Gradient", "Newton"];
 
+// Step size of contour plot
+var contour_step = 5;
+
+// Minimise function
 function minimize(x0, y0) {
     // Remove paths
     optimisation_path.selectAll("path").remove();

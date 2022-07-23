@@ -18,9 +18,6 @@ var svg = d3.select("#contour")
 var nx = Math.floor(width / 5);
 var ny = Math.floor(height / 5);
 
-// Step size of contour plot
-var contour_step = 5;
-
 // Scales
 var scale_x = d3.scaleLinear()
                 .domain([0, width])

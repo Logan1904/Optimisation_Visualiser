@@ -35,6 +35,10 @@ function gradient_descent(x0, y0, alpha, max_iter, tol=0.01) {
 // Define buttons
 var buttons = ["Gradient"];
 
+// Step size of contour plot
+var contour_step = 5;
+
+// Minimise function
 function minimize(x0, y0) {
     // Remove paths
     optimisation_path.selectAll("path").remove();
