@@ -15,3 +15,7 @@ body {
     background-attachment: fixed;
     background-size: cover;
 }
+
+.axis {
+    stroke: white;
+}

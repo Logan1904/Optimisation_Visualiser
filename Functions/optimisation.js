@@ -59,8 +59,8 @@ svg.append("g")
 var bottomAxis = d3.axisBottom(d3.scaleLinear().domain(domain_x).range([0,width]));
 var leftAxis = d3.axisLeft(d3.scaleLinear().domain(domain_y).range([height,0]));
 
-svg.append("g").call(bottomAxis).attr("transform", "translate(0," + height + ")");
-svg.append("g").call(leftAxis);
+svg.append("g").call(bottomAxis).attr("transform", "translate(0," + height + ")").attr("class", "axis");
+svg.append("g").call(leftAxis).attr("class", "axis");
 
 // Add grid to SVG
 svg.append("g").call(bottomAxis.tickSize(height).tickFormat("")).style("stroke-dasharray", "5 5").attr("class", "grid");
